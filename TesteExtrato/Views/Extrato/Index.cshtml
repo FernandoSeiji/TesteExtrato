@@ -1,0 +1,49 @@
+﻿@using TesteExtrato.Abstracoes.ViewModels
+
+@model ExtratoViewModel
+@{
+    ViewData["Title"] = "Extrato";
+}
+
+<h1 class="display-4">Extrato</h1>
+
+<form asp-controller="Extrato" asp-action="Index" method="get">
+    <select class="form-select form-select-lg mb-3" asp-for="FiltroDias">
+        <option selected>Filtrar pelos últimos:</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+    </select>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Transacao</th>
+            <th scope="col">Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.Transacoes is not null && Model.Transacoes.Any())
+        {
+            foreach (TransacaoDto transacao in Model.Transacoes)
+            {
+                <tr>
+                    <td>@transacao.Data.ToString("dd/MM")</td>
+                    <td>@transacao.TipoTransacao</td>
+                    <td>@transacao.Valor.ToString("C")</td>
+                </tr>
+            }    
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Download", "Download", new { dias = @Model?.FiltroDias })
+@* <a role="button" class="btn btn-primary" asp-controller="Extrato" asp-route-dias="@Model?.FiltroDias" asp-action="Download">Download</a> *@
+
+
+
