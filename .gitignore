@@ -1,0 +1,15 @@
+.vs
+*.csproj.user
+.vscode
+bin/
+obj/
+TestResults/
+*.user
+serviceDependencies*.json
+
+# Rider auto-generates files
+**/.idea/*
+*.lutconfig
+
+.DS_Store
+
